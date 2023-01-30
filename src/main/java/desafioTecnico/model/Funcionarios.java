@@ -1,8 +1,15 @@
 package desafioTecnico.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Funcionarios extends Pessoa {
+    public Funcionarios(Long id, String nome, LocalDate nascimento, BigDecimal salario, String funcao) {
+        super(id, nome, nascimento);
+        this.salario = salario;
+        this.funcao = funcao;
+    }
+
     private BigDecimal salario;
     private String funcao;
 

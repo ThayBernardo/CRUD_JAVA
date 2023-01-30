@@ -6,6 +6,7 @@ import desafioTecnico.model.Funcionarios;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -55,16 +56,25 @@ public class FuncionariosDAO implements IFuncionariosDAO{
         List<Funcionarios> funcionarios = new ArrayList<>();
 
         try (Connection connection = ConnectionFactory.getConnection()) {
-            String sql = "SELECT nome, to_char(data_nascimento, 'DD/MM/YYYY') as data_nascimento, salario, funcao FROM funcionarios";
+            String sql = "SELECT id, nome, to_char(data_nascimento, 'DD/MM/YYYY') as data_nascimento, to_char(salario, 'fm999G999D99') as salario, funcao FROM funcionarios";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
 
             while(rs.next()){
+                Long id = rs.getLong("id");
                 String nome = rs.getString("nome");
-                LocalDate dataNascimento = rs.getDate("data_nascimento").toLocalDate();
-                BigDecimal salario = rs.getBigDecimal("salario");
+                String dataNascimento = rs.getString("data_nascimento");
+                String salario = rs.getString("salario");
                 String funcao = rs.getString("funcao");
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate localDate = LocalDate.parse(dataNascimento, formatter);
+
+                BigDecimal bigDecimal = new BigDecimal(salario.replaceAll(",", ""));
+
+                Funcionarios funcionario = new Funcionarios(id, nome, localDate, bigDecimal, funcao);
+                funcionarios.add(funcionario);
             }
 
         } catch (SQLException error) {

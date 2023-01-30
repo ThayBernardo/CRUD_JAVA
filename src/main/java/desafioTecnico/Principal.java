@@ -4,13 +4,27 @@ import desafioTecnico.dao.FuncionariosDAO;
 import desafioTecnico.model.Funcionarios;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class Principal {
 
     public static void main(String[] args) {
 
         FuncionariosDAO funcionariosDAO = new FuncionariosDAO();
+
+        List<Funcionarios> funcionarios = funcionariosDAO.findAll();
+
+        System.out.println("nome       data_nascimento      salario      funcao");
+        for(Funcionarios funcionario : funcionarios){
+            String formatted = funcionario.getNascimento().format(DateTimeFormatter.ofPattern(("dd/MM/yyyy")));
+            BigDecimal salario = funcionario.getSalario();
+            DecimalFormat df = new DecimalFormat("#,##0.00");
+            System.out.println(funcionario.getNome() + "      " + formatted
+            + "         " + df.format(salario) + "        " + funcionario.getFuncao());
+        }
 
 //        funcionariosDAO.delete("João");
 
