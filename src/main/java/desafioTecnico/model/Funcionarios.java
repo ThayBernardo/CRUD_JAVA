@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Funcionarios extends Pessoa {
-    public Funcionarios(Long id, String nome, LocalDate nascimento, BigDecimal salario, String funcao) {
-        super(id, nome, nascimento);
+    public Funcionarios(String nome, LocalDate nascimento, BigDecimal salario, String funcao) {
+        super(nome, nascimento);
         this.salario = salario;
         this.funcao = funcao;
     }

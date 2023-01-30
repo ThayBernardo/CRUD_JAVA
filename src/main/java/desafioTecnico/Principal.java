@@ -8,6 +8,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -17,85 +18,33 @@ public class Principal {
 
         FuncionariosDAO funcionariosDAO = new FuncionariosDAO();
 
-        List<Funcionarios> funcionarios = funcionariosDAO.findAll();
+//        ### RETORNA TODOS FUNCIONÁRIOS E SEUS ATRÍBUTOS ###
+        allEmployees(funcionariosDAO);
 
-        for(Funcionarios funcionario : funcionarios){
-            BigDecimal salaryMin = new BigDecimal(1212);
-            BigDecimal salary = funcionario.getSalario();
+//        ### REMOVE DO BANCO DE DADOS NOME DESEJADO ###
+        remove("João", funcionariosDAO);
 
-            BigDecimal total = salary.divide(salaryMin, new MathContext(2, RoundingMode.HALF_EVEN));
+//        ### ATUALIZA SALÁRIOS EM MAIS 10% ###
+        updateSalary(funcionariosDAO);
 
-            System.out.println("Funcionário: " + funcionario.getNome() + ", Salario Minimo: " + total);
-        }
+//        ### RETORNA FUNCIONÁRIOS E SUAS FUNÇÕES ###
+        functionEmployee(funcionariosDAO);
 
 //        ### RETORNA NOMES ORDENADOS ###
-//        ArrayList<String> listName = new ArrayList<String>();
-//        List<Funcionarios> funcionarios = funcionariosDAO.findAll();
-//
-//        for(Funcionarios funcionario : funcionarios){
-//            listName.add(funcionario.getNome());
-//        }
-//
-//        Collections.sort(listName);
-//        System.out.println(listName);
+        orderedNames(funcionariosDAO);
 
 //        ### RETORNA TOTAL DOS SALARIOS ###
-//        List<Funcionarios> funcionarios = funcionariosDAO.findAll();
-//        BigDecimal total = BigDecimal.valueOf(0);
-//
-//        for(Funcionarios funcionario : funcionarios){
-//            total = total.add(funcionario.getSalario());
-//        }
-//
-//        DecimalFormat df = new DecimalFormat("#,##0.00");
-//        System.out.println(df.format(total));
+        totalSalary(funcionariosDAO);
 
+//        ### RETORNA QUANTIDADE DE SALÁRIOS MINÍMOS CADA FUNCIONÁRIO RECEBE ###
+        minSalary(funcionariosDAO);
 
-//        ### RETORNA FUNCIONARIO MAIS VELHO ###
-//        System.out.print(funcionariosDAO.maxAge());
+//        ### RETORNA ANIVERSARIANTES DOS MESES 10 E 12 ###
+        birthdays(funcionariosDAO);
 
-//        ### LISTA FUNÇÕES COM SEUS FUNCIONARIOS ###
-//        Map<String, List<String>> funcionariosPorFuncao = new HashMap<>();
-//        List<Funcionarios> funcionarios = funcionariosDAO.findAll();
-//
-//        for(Funcionarios funcionario : funcionarios) {
-//            String funcionarioAtual = funcionario.getNome();
-//            String funcao = funcionario.getFuncao();
-//
-//            if(!funcionariosPorFuncao.containsKey(funcao)){
-//                funcionariosPorFuncao.put(funcao, new ArrayList<>());
-//            }
-//
-//            funcionariosPorFuncao.get(funcao).add(funcionarioAtual);
-//        }
-//
-//        System.out.print(funcionariosPorFuncao);
-//        ### IMPRIME ANIVERSARIANTES ###
-//        List<String> aniversariantes = funcionariosDAO.findByBirthday();
-//        for(String aniversariante : aniversariantes){
-//            System.out.println(aniversariante);
-//        }
+    }
 
-//        ### METODO PARA ADICIONAR 10% NO SALARIO ###
-//        funcionariosDAO.update();
-
-//        #### RETORNA TABELA ####
-//        List<Funcionarios> funcionarios = funcionariosDAO.findAll();
-//
-//        System.out.printf("%10s %20s %15s %15s","nome", "data_nascimento", "salario", "funcao");
-//        System.out.println();
-//        for(Funcionarios funcionario : funcionarios){
-//            String formatted = funcionario.getNascimento().format(DateTimeFormatter.ofPattern(("dd/MM/yyyy")));
-//            BigDecimal salario = funcionario.getSalario();
-//            DecimalFormat df = new DecimalFormat("#,##0.00");
-//            System.out.format("%10s, %20s, %15s, %15s", funcionario.getNome(), formatted, df.format(salario), funcionario.getFuncao());
-//            System.out.println();
-//        }
-
-//        #### DELETA ####
-//        funcionariosDAO.delete("João");
-
-//        #### ADICIONANDO NA TABELA ####
+//    public static void create(FuncionariosDAO funcionariosDAO){
 //        Funcionarios funcionarios = new Funcionarios();
 //        funcionarios.setNome("Maria");
 //        funcionarios.setNascimento(LocalDate.of(2000, 10, 18));
@@ -146,9 +95,123 @@ public class Principal {
 //        funcionarios.setNascimento(LocalDate.of(1996, 9, 2));
 //        funcionarios.setSalario(BigDecimal.valueOf(2799.93));
 //        funcionarios.setFuncao("Gerente");
-
+//
 //        funcionariosDAO.create(funcionarios);
+//    }
+//
+//    public static void create(String nome, String nascimento, String salario, String funcao, FuncionariosDAO funcionariosDAO){
+//        Funcionarios funcionario = new Funcionarios();
+//        funcionario.setNome(nome);
+//        funcionario.setNascimento(LocalDate.parse(nascimento));
+//        funcionario.setSalario(new BigDecimal(salario));
+//        funcionario.setFuncao(funcao);
+//
+//        funcionariosDAO.create(funcionario);
+//    }
+    public static void allEmployees(FuncionariosDAO funcionariosDAO){
+        List<Funcionarios> employees = funcionariosDAO.findAll();
 
+        System.out.printf("%10s %20s %15s %15s","nome", "data_nascimento", "salario", "funcao");
+        System.out.println();
+        for(Funcionarios employee : employees){
+            String formatted = employee.getNascimento().format(DateTimeFormatter.ofPattern(("dd/MM/yyyy")));
+            BigDecimal salario = employee.getSalario();
+            DecimalFormat df = new DecimalFormat("#,##0.00");
+            System.out.format("%10s, %20s, %15s, %15s", employee.getNome(), formatted, df.format(salario), employee.getFuncao());
+            System.out.println();
+        }
+    }
 
+    public static void remove(String nome, FuncionariosDAO funcionariosDAO){
+        funcionariosDAO.delete(nome);
+    }
+
+    public static void updateSalary(FuncionariosDAO funcionariosDAO){
+        funcionariosDAO.update();
+    }
+
+    public static void functionEmployee(FuncionariosDAO funcionariosDAO) {
+        Map<String, List<String>> functionsToEmployees = new HashMap<>();
+        List<Funcionarios> employees = funcionariosDAO.findAll();
+
+        for(Funcionarios employee : employees) {
+            String currentEmployee = employee.getNome();
+            String function = employee.getFuncao();
+
+            if(!functionsToEmployees.containsKey(function)){
+                functionsToEmployees.put(function, new ArrayList<>());
+            }
+
+            functionsToEmployees.get(function).add(currentEmployee);
+        }
+        System.out.print(functionsToEmployees);
+    }
+
+    public static void orderedNames(FuncionariosDAO funcionariosDAO){
+        ArrayList<String> listNames = new ArrayList<String>();
+        List<Funcionarios> employees = funcionariosDAO.findAll();
+
+        for(Funcionarios employee : employees){
+            listNames.add(employee.getNome());
+        }
+
+        Collections.sort(listNames);
+        System.out.println(listNames);
+    }
+
+    public static void totalSalary(FuncionariosDAO funcionariosDAO){
+        List<Funcionarios> employees = funcionariosDAO.findAll();
+        BigDecimal total = BigDecimal.valueOf(0);
+
+        for(Funcionarios employee : employees){
+            total = total.add(employee.getSalario());
+        }
+
+        DecimalFormat df = new DecimalFormat("#,##0.00");
+        System.out.println(df.format(total));
+    }
+
+    public static void minSalary(FuncionariosDAO funcionariosDAO){
+        List<Funcionarios> funcionarios = funcionariosDAO.findAll();
+        BigDecimal total = BigDecimal.valueOf(0);
+
+        for(Funcionarios funcionario : funcionarios){
+            BigDecimal salaryMin = new BigDecimal(1212);
+            BigDecimal salary = funcionario.getSalario();
+
+            total = salary.divide(salaryMin, new MathContext(2, RoundingMode.HALF_EVEN));
+
+            System.out.println("Funcionário: " + funcionario.getNome() + ", Salarios Minimo: " + total);
+        }
+    }
+
+    public static void maxAge(FuncionariosDAO funcionariosDAO){
+        List<Funcionarios> funcionarios = funcionariosDAO.findAll();
+        Period age = Period.ZERO;
+        String name = "";
+
+        for(Funcionarios funcionario : funcionarios){
+            LocalDate today = LocalDate.now();
+            LocalDate birth = funcionario.getNascimento();
+            Period currentAge = Period.between(birth, today);
+
+            if(age.toTotalMonths() < currentAge.toTotalMonths()){
+                age = currentAge;
+                name = funcionario.getNome();
+            }
+        }
+        System.out.print("Nome: " + name + ", Idade: " + age);
+    }
+
+    public static void birthdays(FuncionariosDAO funcionariosDAO){
+        List<Funcionarios> funcionarios = funcionariosDAO.findAll();
+
+        for(Funcionarios funcionario : funcionarios){
+            int month = funcionario.getNascimento().getMonthValue();
+
+            if(month == 10 || month == 12) {
+                System.out.println("Nome: " + funcionario.getNome() + ", Aniversário: " + funcionario.getNascimento());
+            }
+        }
     }
 }

@@ -69,7 +69,6 @@ public class FuncionariosDAO implements IFuncionariosDAO{
             ResultSet rs = preparedStatement.executeQuery();
 
             while(rs.next()){
-                Long id = rs.getLong("id");
                 String nome = rs.getString("nome");
                 String dataNascimento = rs.getString("data_nascimento");
                 String salario = rs.getString("salario");
@@ -80,7 +79,7 @@ public class FuncionariosDAO implements IFuncionariosDAO{
 
                 BigDecimal bigDecimal = new BigDecimal(salario.replaceAll(",", ""));
 
-                Funcionarios funcionario = new Funcionarios(id, nome, localDate, bigDecimal, funcao);
+                Funcionarios funcionario = new Funcionarios(nome, localDate, bigDecimal, funcao);
                 funcionarios.add(funcionario);
             }
 
