@@ -140,4 +140,48 @@ public class FuncionariosDAO implements IFuncionariosDAO{
 //
 //        return funcionarios;
 //    }
+
+//    ----------------- METODO PARA RETORNAR NOMES ORDENADOS -----------------
+//    public List<String> findAllNames() {
+//        List<String> orderedNames = new ArrayList<>();
+//
+//        try (Connection connection = ConnectionFactory.getConnection()) {
+//            String sql = "SELECT nome FROM funcionarios ORDER BY nome";
+//
+//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//            ResultSet rs = preparedStatement.executeQuery();
+//
+//            while(rs.next()){
+//                String name = rs.getString("nome");
+//
+//                orderedNames.add(name);
+//            }
+//
+//        } catch (SQLException error) {
+//            throw new RuntimeException(error);
+//        } ;
+//
+//        return orderedNames;
+//    }
+
+    //    ----------------- METODO PARA RETORNAR TOTAL DOS SALARIOS -----------------
+//    public Integer totalSalary() {
+//        Integer total = null;
+//        try (Connection connection = ConnectionFactory.getConnection()) {
+//            String sql = "SELECT SUM(salario) as total_salarios FROM funcionarios";
+//
+//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//            ResultSet rs = preparedStatement.executeQuery();
+//
+//            while (rs.next()) {
+//                total = rs.getInt("total_salarios");
+//            }
+//
+//        } catch (SQLException error) {
+//            throw new RuntimeException(error);
+//        }
+//        ;
+//
+//        return total;
+//    }
 }

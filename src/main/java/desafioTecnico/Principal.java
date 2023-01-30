@@ -18,6 +18,7 @@ public class Principal {
 
         FuncionariosDAO funcionariosDAO = new FuncionariosDAO();
 
+        funcionariosDAO.minSalary();
 //        ### CRIA FUNCIONARIOS ###
         createEmployee(funcionariosDAO);
 
