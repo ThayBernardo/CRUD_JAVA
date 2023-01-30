@@ -7,7 +7,10 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Principal {
 
@@ -15,6 +18,25 @@ public class Principal {
 
         FuncionariosDAO funcionariosDAO = new FuncionariosDAO();
 
+//        ### RETORNA FUNCIONARIO MAIS VELHO ###
+//        System.out.print(funcionariosDAO.maxAge());
+
+//        ### LISTA FUNÇÕES COM SEUS FUNCIONARIOS ###
+//        Map<String, List<String>> funcionariosPorFuncao = new HashMap<>();
+//        List<Funcionarios> funcionarios = funcionariosDAO.findAll();
+//
+//        for(Funcionarios funcionario : funcionarios) {
+//            String funcionarioAtual = funcionario.getNome();
+//            String funcao = funcionario.getFuncao();
+//
+//            if(!funcionariosPorFuncao.containsKey(funcao)){
+//                funcionariosPorFuncao.put(funcao, new ArrayList<>());
+//            }
+//
+//            funcionariosPorFuncao.get(funcao).add(funcionarioAtual);
+//        }
+//
+//        System.out.print(funcionariosPorFuncao);
 //        ### IMPRIME ANIVERSARIANTES ###
 //        List<String> aniversariantes = funcionariosDAO.findByBirthday();
 //        for(String aniversariante : aniversariantes){

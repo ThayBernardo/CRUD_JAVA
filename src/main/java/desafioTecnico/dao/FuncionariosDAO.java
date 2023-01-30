@@ -113,4 +113,30 @@ public class FuncionariosDAO implements IFuncionariosDAO{
 
         return funcionarios;
     }
+
+    @Override
+    public String maxAge() {
+        String funcionario = "";
+        String idade = "";
+
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "SELECT nome, date_part('year', age(data_nascimento)) as idade\n" +
+                    "FROM funcionarios\n" +
+                    "ORDER BY data_nascimento\n" +
+                    "LIMIT 1";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                funcionario = rs.getString("nome");
+                idade = rs.getString("idade").toString();
+            }
+
+        } catch (SQLException error) {
+            throw new RuntimeException(error);
+        } ;
+
+        return "nome: " + funcionario + "\n" + "idade: " + idade;
+    }
 }
