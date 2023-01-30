@@ -8,6 +8,9 @@ public abstract class Pessoa {
         this.nascimento = nascimento;
     }
 
+    public Pessoa() {
+        super();
+    }
     protected String nome;
     protected LocalDate nascimento;
 

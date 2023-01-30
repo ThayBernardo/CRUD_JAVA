@@ -18,7 +18,8 @@ public class Principal {
 
         FuncionariosDAO funcionariosDAO = new FuncionariosDAO();
 
-        criar();
+//        ### CRIA FUNCIONARIOS ###
+        createEmployee(funcionariosDAO);
 
 //        ### RETORNA TODOS FUNCIONÁRIOS E SEUS ATRÍBUTOS ###
         allEmployees(funcionariosDAO);
@@ -48,9 +49,7 @@ public class Principal {
         maxAge(funcionariosDAO);
     }
 
-    public static void criar(){
-        FuncionariosDAO funcionariosDAO = new FuncionariosDAO();
-
+    public static void createEmployee(FuncionariosDAO funcionariosDAO){
         Funcionarios funcionarios = new Funcionarios();
         funcionarios.setNome("Thayssa");
         funcionarios.setNascimento(LocalDate.of(1990, 5, 12));
