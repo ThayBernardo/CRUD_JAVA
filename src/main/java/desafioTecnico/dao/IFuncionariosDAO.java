@@ -7,11 +7,11 @@ import java.util.Optional;
 
 public interface IFuncionariosDAO {
     Funcionarios create(Funcionarios funcionarios);
-    Funcionarios update(Funcionarios funcionarios);
+
+    void update();
 
     void delete(String nome);
 
     List<Funcionarios> findAll();
-    Optional<Funcionarios> findById(Long id);
-    List<Funcionarios> findByName(String nome);
+    List<String> findByBirthday();
 }

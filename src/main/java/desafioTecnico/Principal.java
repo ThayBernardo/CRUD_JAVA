@@ -15,20 +15,32 @@ public class Principal {
 
         FuncionariosDAO funcionariosDAO = new FuncionariosDAO();
 
-        List<Funcionarios> funcionarios = funcionariosDAO.findAll();
+//        ### IMPRIME ANIVERSARIANTES ###
+//        List<String> aniversariantes = funcionariosDAO.findByBirthday();
+//        for(String aniversariante : aniversariantes){
+//            System.out.println(aniversariante);
+//        }
 
-        System.out.printf("%10s %20s %15s %15s","nome", "data_nascimento", "salario", "funcao");
-        System.out.println();
-        for(Funcionarios funcionario : funcionarios){
-            String formatted = funcionario.getNascimento().format(DateTimeFormatter.ofPattern(("dd/MM/yyyy")));
-            BigDecimal salario = funcionario.getSalario();
-            DecimalFormat df = new DecimalFormat("#,##0.00");
-            System.out.format("%10s, %20s, %15s, %15s", funcionario.getNome(), formatted, df.format(salario), funcionario.getFuncao());
-            System.out.println();
-        }
+//        ### METODO PARA ADICIONAR 10% NO SALARIO ###
+//        funcionariosDAO.update();
 
+//        #### RETORNA TABELA ####
+//        List<Funcionarios> funcionarios = funcionariosDAO.findAll();
+//
+//        System.out.printf("%10s %20s %15s %15s","nome", "data_nascimento", "salario", "funcao");
+//        System.out.println();
+//        for(Funcionarios funcionario : funcionarios){
+//            String formatted = funcionario.getNascimento().format(DateTimeFormatter.ofPattern(("dd/MM/yyyy")));
+//            BigDecimal salario = funcionario.getSalario();
+//            DecimalFormat df = new DecimalFormat("#,##0.00");
+//            System.out.format("%10s, %20s, %15s, %15s", funcionario.getNome(), formatted, df.format(salario), funcionario.getFuncao());
+//            System.out.println();
+//        }
+
+//        #### DELETA ####
 //        funcionariosDAO.delete("João");
 
+//        #### ADICIONANDO NA TABELA ####
 //        Funcionarios funcionarios = new Funcionarios();
 //        funcionarios.setNome("Maria");
 //        funcionarios.setNascimento(LocalDate.of(2000, 10, 18));

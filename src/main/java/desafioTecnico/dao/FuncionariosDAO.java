@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class FuncionariosDAO implements IFuncionariosDAO{
     @Override
@@ -31,9 +30,17 @@ public class FuncionariosDAO implements IFuncionariosDAO{
         return funcionarios;
     }
 
-    @Override
-    public Funcionarios update(Funcionarios funcionarios) {
-        return null;
+    public void update() {
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "UPDATE funcionarios SET salario = ROUND(salario + salario * 0.1, 2)";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException error) {
+            throw new RuntimeException(error);
+        } ;
     }
 
     @Override
@@ -85,12 +92,25 @@ public class FuncionariosDAO implements IFuncionariosDAO{
     }
 
     @Override
-    public Optional<Funcionarios> findById(Long id) {
-        return Optional.empty();
-    }
+    public List<String> findByBirthday() {
+            List<String> funcionarios = new ArrayList<>();
 
-    @Override
-    public List<Funcionarios> findByName(String nome) {
-        return null;
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "SELECT nome, data_nascimento FROM funcionarios WHERE EXTRACT(MONTH FROM data_nascimento) = 10 OR EXTRACT(MONTH FROM data_nascimento) = 12";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                String nome = rs.getString("nome");
+
+                funcionarios.add(nome);
+            }
+
+        } catch (SQLException error) {
+            throw new RuntimeException(error);
+        } ;
+
+        return funcionarios;
     }
 }
