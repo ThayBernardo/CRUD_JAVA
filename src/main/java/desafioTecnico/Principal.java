@@ -42,6 +42,8 @@ public class Principal {
 //        ### RETORNA ANIVERSARIANTES DOS MESES 10 E 12 ###
         birthdays(funcionariosDAO);
 
+//        ### RETORNA PESSOA MAIS VELHA ###
+        maxAge(funcionariosDAO);
     }
 
 //    public static void create(FuncionariosDAO funcionariosDAO){
@@ -200,7 +202,7 @@ public class Principal {
                 name = funcionario.getNome();
             }
         }
-        System.out.print("Nome: " + name + ", Idade: " + age);
+        System.out.print("Nome: " + name + ", Idade: " + age.getYears());
     }
 
     public static void birthdays(FuncionariosDAO funcionariosDAO){

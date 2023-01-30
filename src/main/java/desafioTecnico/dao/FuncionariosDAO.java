@@ -90,52 +90,54 @@ public class FuncionariosDAO implements IFuncionariosDAO{
         return funcionarios;
     }
 
-    @Override
-    public List<String> findByBirthday() {
-            List<String> funcionarios = new ArrayList<>();
+//    ----------------- METODO PARA RETORNAR PESSOA MAIS VELHA -----------------
+//    @Override
+//    public String maxAge() {
+//        String funcionario = "";
+//        String idade = "";
+//
+//        try (Connection connection = ConnectionFactory.getConnection()) {
+//            String sql = "SELECT nome, date_part('year', age(data_nascimento)) as idade\n" +
+//                    "FROM funcionarios\n" +
+//                    "ORDER BY data_nascimento\n" +
+//                    "LIMIT 1";
+//
+//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//            ResultSet rs = preparedStatement.executeQuery();
+//
+//            while(rs.next()){
+//                funcionario = rs.getString("nome");
+//                idade = rs.getString("idade").toString();
+//            }
+//
+//        } catch (SQLException error) {
+//            throw new RuntimeException(error);
+//        } ;
+//
+//        return "nome: " + funcionario + "\n" + "idade: " + idade;
+//    }
 
-        try (Connection connection = ConnectionFactory.getConnection()) {
-            String sql = "SELECT nome, data_nascimento FROM funcionarios WHERE EXTRACT(MONTH FROM data_nascimento) = 10 OR EXTRACT(MONTH FROM data_nascimento) = 12";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while(rs.next()){
-                String nome = rs.getString("nome");
-
-                funcionarios.add(nome);
-            }
-
-        } catch (SQLException error) {
-            throw new RuntimeException(error);
-        } ;
-
-        return funcionarios;
-    }
-
-    @Override
-    public String maxAge() {
-        String funcionario = "";
-        String idade = "";
-
-        try (Connection connection = ConnectionFactory.getConnection()) {
-            String sql = "SELECT nome, date_part('year', age(data_nascimento)) as idade\n" +
-                    "FROM funcionarios\n" +
-                    "ORDER BY data_nascimento\n" +
-                    "LIMIT 1";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while(rs.next()){
-                funcionario = rs.getString("nome");
-                idade = rs.getString("idade").toString();
-            }
-
-        } catch (SQLException error) {
-            throw new RuntimeException(error);
-        } ;
-
-        return "nome: " + funcionario + "\n" + "idade: " + idade;
-    }
+//    ----------------- METODO PARA RETORNAR PESSOAS QUE FAZEM ANIVERSÁRIOS NOS MESES 10 E 12 -----------------
+//    @Override
+//    public List<String> findByBirthday() {
+//        List<String> funcionarios = new ArrayList<>();
+//
+//        try (Connection connection = ConnectionFactory.getConnection()) {
+//            String sql = "SELECT nome, data_nascimento FROM funcionarios WHERE EXTRACT(MONTH FROM data_nascimento) = 10 OR EXTRACT(MONTH FROM data_nascimento) = 12";
+//
+//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//            ResultSet rs = preparedStatement.executeQuery();
+//
+//            while(rs.next()){
+//                String nome = rs.getString("nome");
+//
+//                funcionarios.add(nome);
+//            }
+//
+//        } catch (SQLException error) {
+//            throw new RuntimeException(error);
+//        } ;
+//
+//        return funcionarios;
+//    }
 }

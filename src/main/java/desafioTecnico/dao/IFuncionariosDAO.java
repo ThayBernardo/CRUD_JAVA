@@ -9,6 +9,8 @@ public interface IFuncionariosDAO {
     void update();
     void delete(String nome);
     List<Funcionarios> findAll();
-    List<String> findByBirthday();
-    String maxAge();
+
+//    ----------------- DEFININDO MÉTODOS NA INTERFACE -----------------
+//    List<String> findByBirthday();
+//    String maxAge();
 }
