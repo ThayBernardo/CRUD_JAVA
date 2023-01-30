@@ -17,13 +17,14 @@ public class Principal {
 
         List<Funcionarios> funcionarios = funcionariosDAO.findAll();
 
-        System.out.println("nome       data_nascimento      salario      funcao");
+        System.out.printf("%10s %20s %15s %15s","nome", "data_nascimento", "salario", "funcao");
+        System.out.println();
         for(Funcionarios funcionario : funcionarios){
             String formatted = funcionario.getNascimento().format(DateTimeFormatter.ofPattern(("dd/MM/yyyy")));
             BigDecimal salario = funcionario.getSalario();
             DecimalFormat df = new DecimalFormat("#,##0.00");
-            System.out.println(funcionario.getNome() + "      " + formatted
-            + "         " + df.format(salario) + "        " + funcionario.getFuncao());
+            System.out.format("%10s, %20s, %15s, %15s", funcionario.getNome(), formatted, df.format(salario), funcionario.getFuncao());
+            System.out.println();
         }
 
 //        funcionariosDAO.delete("João");
