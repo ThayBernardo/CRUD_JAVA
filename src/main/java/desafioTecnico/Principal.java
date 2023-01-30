@@ -49,61 +49,24 @@ public class Principal {
         maxAge(funcionariosDAO);
     }
 
-    public static void createEmployee(FuncionariosDAO funcionariosDAO){
-        Funcionarios funcionarios = new Funcionarios();
-        funcionarios.setNome("Thayssa");
-        funcionarios.setNascimento(LocalDate.of(1990, 5, 12));
-        funcionarios.setSalario(BigDecimal.valueOf(2284.38));
-        funcionarios.setFuncao("Operador");
+    public static void createEmployee(FuncionariosDAO funcionariosDAO) {
+        List<Funcionarios> employeesList = Arrays.asList(
+            new Funcionarios("João", LocalDate.of(1990, 5, 12), BigDecimal.valueOf(2284.38), "Operador"),
+            new Funcionarios("Caio", LocalDate.of(1961, 5, 2), BigDecimal.valueOf(9836.14), "Coordenador"),
+            new Funcionarios("Miguel", LocalDate.of(1988, 10, 14), BigDecimal.valueOf(19119.88), "Diretor"),
+            new Funcionarios("Alice", LocalDate.of(1995, 1, 5), BigDecimal.valueOf(2234.68), "Recepcionista"),
+            new Funcionarios("Heitor", LocalDate.of(1999, 11, 19), BigDecimal.valueOf(1582.72), "Operador"),
+            new Funcionarios("Arthur", LocalDate.of(1993, 3, 31), BigDecimal.valueOf(4071.84), "Contador"),
+            new Funcionarios("Laura", LocalDate.of(1994, 7, 8), BigDecimal.valueOf(3017.45), "Gerente"),
+            new Funcionarios("Heloísa", LocalDate.of(2003, 5, 24), BigDecimal.valueOf(1606.85), "Eletricista"),
+            new Funcionarios("Helena", LocalDate.of(1996, 9, 2), BigDecimal.valueOf(2799.93), "Gerente")
+        );
 
-        funcionariosDAO.create(funcionarios);
+        for (Funcionarios funcionario : employeesList) {
+            funcionariosDAO.create(funcionario);
+        }
     }
 
-//        funcionarios.setNome("João");
-//        funcionarios.setNascimento(LocalDate.of(1990, 5, 12));
-//        funcionarios.setSalario(BigDecimal.valueOf(2284.38));
-//        funcionarios.setFuncao("Operador");
-//
-//        funcionarios.setNome("Caio");
-//        funcionarios.setNascimento(LocalDate.of(1961, 5, 2));
-//        funcionarios.setSalario(BigDecimal.valueOf(9836.14));
-//        funcionarios.setFuncao("Coordenador");
-//
-//        funcionarios.setNome("Miguel");
-//        funcionarios.setNascimento(LocalDate.of(1988, 10, 14));
-//        funcionarios.setSalario(BigDecimal.valueOf(19119.88));
-//        funcionarios.setFuncao("Diretor");
-//
-//        funcionarios.setNome("Alice");
-//        funcionarios.setNascimento(LocalDate.of(1995, 1, 5));
-//        funcionarios.setSalario(BigDecimal.valueOf(2234.68));
-//        funcionarios.setFuncao("Recepcionista");
-//
-//        funcionarios.setNome("Heitor");
-//        funcionarios.setNascimento(LocalDate.of(1999, 11, 19));
-//        funcionarios.setSalario(BigDecimal.valueOf(1582.72));
-//        funcionarios.setFuncao("Operador");
-//
-//        funcionarios.setNome("Arthur");
-//        funcionarios.setNascimento(LocalDate.of(1993, 3, 31));
-//        funcionarios.setSalario(BigDecimal.valueOf(4071.84));
-//        funcionarios.setFuncao("Contador");
-//
-//        funcionarios.setNome("Laura");
-//        funcionarios.setNascimento(LocalDate.of(1994, 7, 8));
-//        funcionarios.setSalario(BigDecimal.valueOf(3017.45));
-//        funcionarios.setFuncao("Gerente");
-//
-//        funcionarios.setNome("Heloísa");
-//        funcionarios.setNascimento(LocalDate.of(2003, 5, 24));
-//        funcionarios.setSalario(BigDecimal.valueOf(1606.85));
-//        funcionarios.setFuncao("Eletricista");
-//
-//        funcionarios.setNome("Helena");
-//        funcionarios.setNascimento(LocalDate.of(1996, 9, 2));
-//        funcionarios.setSalario(BigDecimal.valueOf(2799.93));
-//        funcionarios.setFuncao("Gerente");
-//
 
     public static void allEmployees(FuncionariosDAO funcionariosDAO){
         List<Funcionarios> employees = funcionariosDAO.findAll();
