@@ -4,19 +4,52 @@ import desafioTecnico.dao.FuncionariosDAO;
 import desafioTecnico.model.Funcionarios;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Principal {
 
     public static void main(String[] args) {
 
         FuncionariosDAO funcionariosDAO = new FuncionariosDAO();
+
+        List<Funcionarios> funcionarios = funcionariosDAO.findAll();
+
+        for(Funcionarios funcionario : funcionarios){
+            BigDecimal salaryMin = new BigDecimal(1212);
+            BigDecimal salary = funcionario.getSalario();
+
+            BigDecimal total = salary.divide(salaryMin, new MathContext(2, RoundingMode.HALF_EVEN));
+
+            System.out.println("Funcionário: " + funcionario.getNome() + ", Salario Minimo: " + total);
+        }
+
+//        ### RETORNA NOMES ORDENADOS ###
+//        ArrayList<String> listName = new ArrayList<String>();
+//        List<Funcionarios> funcionarios = funcionariosDAO.findAll();
+//
+//        for(Funcionarios funcionario : funcionarios){
+//            listName.add(funcionario.getNome());
+//        }
+//
+//        Collections.sort(listName);
+//        System.out.println(listName);
+
+//        ### RETORNA TOTAL DOS SALARIOS ###
+//        List<Funcionarios> funcionarios = funcionariosDAO.findAll();
+//        BigDecimal total = BigDecimal.valueOf(0);
+//
+//        for(Funcionarios funcionario : funcionarios){
+//            total = total.add(funcionario.getSalario());
+//        }
+//
+//        DecimalFormat df = new DecimalFormat("#,##0.00");
+//        System.out.println(df.format(total));
+
 
 //        ### RETORNA FUNCIONARIO MAIS VELHO ###
 //        System.out.print(funcionariosDAO.maxAge());
