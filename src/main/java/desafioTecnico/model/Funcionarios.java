@@ -4,14 +4,14 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Funcionarios extends Pessoa {
+    private BigDecimal salario;
+    private String funcao;
+
     public Funcionarios(String nome, LocalDate nascimento, BigDecimal salario, String funcao) {
         super(nome, nascimento);
         this.salario = salario;
         this.funcao = funcao;
     }
-
-    private BigDecimal salario;
-    private String funcao;
 
     public BigDecimal getSalario() {
         return salario;

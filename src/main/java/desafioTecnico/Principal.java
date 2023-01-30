@@ -18,6 +18,8 @@ public class Principal {
 
         FuncionariosDAO funcionariosDAO = new FuncionariosDAO();
 
+        criar();
+
 //        ### RETORNA TODOS FUNCIONÁRIOS E SEUS ATRÍBUTOS ###
         allEmployees(funcionariosDAO);
 
@@ -46,12 +48,17 @@ public class Principal {
         maxAge(funcionariosDAO);
     }
 
-//    public static void create(FuncionariosDAO funcionariosDAO){
-//        Funcionarios funcionarios = new Funcionarios();
-//        funcionarios.setNome("Maria");
-//        funcionarios.setNascimento(LocalDate.of(2000, 10, 18));
-//        funcionarios.setSalario(BigDecimal.valueOf(2009.44));
-//        funcionarios.setFuncao("Operador");
+    public static void criar(){
+        FuncionariosDAO funcionariosDAO = new FuncionariosDAO();
+
+        Funcionarios funcionarios = new Funcionarios();
+        funcionarios.setNome("Thayssa");
+        funcionarios.setNascimento(LocalDate.of(1990, 5, 12));
+        funcionarios.setSalario(BigDecimal.valueOf(2284.38));
+        funcionarios.setFuncao("Operador");
+
+        funcionariosDAO.create(funcionarios);
+    }
 
 //        funcionarios.setNome("João");
 //        funcionarios.setNascimento(LocalDate.of(1990, 5, 12));
@@ -98,18 +105,7 @@ public class Principal {
 //        funcionarios.setSalario(BigDecimal.valueOf(2799.93));
 //        funcionarios.setFuncao("Gerente");
 //
-//        funcionariosDAO.create(funcionarios);
-//    }
-//
-//    public static void create(String nome, String nascimento, String salario, String funcao, FuncionariosDAO funcionariosDAO){
-//        Funcionarios funcionario = new Funcionarios();
-//        funcionario.setNome(nome);
-//        funcionario.setNascimento(LocalDate.parse(nascimento));
-//        funcionario.setSalario(new BigDecimal(salario));
-//        funcionario.setFuncao(funcao);
-//
-//        funcionariosDAO.create(funcionario);
-//    }
+
     public static void allEmployees(FuncionariosDAO funcionariosDAO){
         List<Funcionarios> employees = funcionariosDAO.findAll();
 

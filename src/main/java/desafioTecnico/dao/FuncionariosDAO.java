@@ -12,22 +12,22 @@ import java.util.List;
 
 public class FuncionariosDAO implements IFuncionariosDAO{
     @Override
-    public Funcionarios create(Funcionarios funcionarios) {
+    public Funcionarios create(Funcionarios funcionario) {
         try (Connection connection = ConnectionFactory.getConnection()) {
             String sql = "INSERT INTO funcionarios (nome, data_nascimento, salario, funcao) VALUES (?, ?, ?, ?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, funcionarios.getNome());
-            preparedStatement.setDate(2, Date.valueOf(funcionarios.getNascimento()));
-            preparedStatement.setBigDecimal(3, funcionarios.getSalario());
-            preparedStatement.setString(4, funcionarios.getFuncao());
+            preparedStatement.setString(1, funcionario.getNome());
+            preparedStatement.setDate(2, Date.valueOf(funcionario.getNascimento()));
+            preparedStatement.setBigDecimal(3, funcionario.getSalario());
+            preparedStatement.setString(4, funcionario.getFuncao());
 
             preparedStatement.executeUpdate();
 
         } catch (SQLException error) {
             throw new RuntimeException(error);
         } ;
-        return funcionarios;
+        return funcionario;
     }
 
     public void update() {
