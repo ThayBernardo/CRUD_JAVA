@@ -3,10 +3,10 @@ package desafioTecnico.dao;
 import desafioTecnico.infra.ConnectionFactory;
 import desafioTecnico.model.Funcionarios;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.math.BigDecimal;
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,13 +36,42 @@ public class FuncionariosDAO implements IFuncionariosDAO{
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String nome) {
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "DELETE FROM funcionarios WHERE nome = ?";
 
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, nome);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException error) {
+            throw new RuntimeException(error);
+        } ;
     }
 
     @Override
     public List<Funcionarios> findAll() {
-        return null;
+        List<Funcionarios> funcionarios = new ArrayList<>();
+
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "SELECT nome, to_char(data_nascimento, 'DD/MM/YYYY') as data_nascimento, salario, funcao FROM funcionarios";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                String nome = rs.getString("nome");
+                LocalDate dataNascimento = rs.getDate("data_nascimento").toLocalDate();
+                BigDecimal salario = rs.getBigDecimal("salario");
+                String funcao = rs.getString("funcao");
+            }
+
+        } catch (SQLException error) {
+            throw new RuntimeException(error);
+        } ;
+
+        return funcionarios;
     }
 
     @Override

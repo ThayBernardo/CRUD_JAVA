@@ -8,7 +8,9 @@ import java.util.Optional;
 public interface IFuncionariosDAO {
     Funcionarios create(Funcionarios funcionarios);
     Funcionarios update(Funcionarios funcionarios);
-    void delete(Long id);
+
+    void delete(String nome);
+
     List<Funcionarios> findAll();
     Optional<Funcionarios> findById(Long id);
     List<Funcionarios> findByName(String nome);
