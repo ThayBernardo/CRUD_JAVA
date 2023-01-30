@@ -1,7 +1,7 @@
-package desafioTecnico.dao;
+package ControlEmployees.dao;
 
-import desafioTecnico.infra.ConnectionFactory;
-import desafioTecnico.model.Funcionarios;
+import ControlEmployees.infra.ConnectionFactory;
+import ControlEmployees.model.Employee;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -10,24 +10,24 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FuncionariosDAO implements IFuncionariosDAO{
+public class EmployeeDAO implements IEmployeeDAO {
     @Override
-    public Funcionarios create(Funcionarios funcionario) {
+    public Employee create(Employee employee) {
         try (Connection connection = ConnectionFactory.getConnection()) {
             String sql = "INSERT INTO funcionarios (nome, data_nascimento, salario, funcao) VALUES (?, ?, ?, ?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, funcionario.getNome());
-            preparedStatement.setDate(2, Date.valueOf(funcionario.getNascimento()));
-            preparedStatement.setBigDecimal(3, funcionario.getSalario());
-            preparedStatement.setString(4, funcionario.getFuncao());
+            preparedStatement.setString(1, employee.getName());
+            preparedStatement.setDate(2, Date.valueOf(employee.getBirth()));
+            preparedStatement.setBigDecimal(3, employee.getSalary());
+            preparedStatement.setString(4, employee.getFunction());
 
             preparedStatement.executeUpdate();
 
         } catch (SQLException error) {
             throw new RuntimeException(error);
         } ;
-        return funcionario;
+        return employee;
     }
 
     public void update() {
@@ -44,12 +44,12 @@ public class FuncionariosDAO implements IFuncionariosDAO{
     }
 
     @Override
-    public void delete(String nome) {
+    public void delete(String name) {
         try (Connection connection = ConnectionFactory.getConnection()) {
             String sql = "DELETE FROM funcionarios WHERE nome = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, nome);
+            preparedStatement.setString(1, name);
 
             preparedStatement.executeUpdate();
 
@@ -59,8 +59,8 @@ public class FuncionariosDAO implements IFuncionariosDAO{
     }
 
     @Override
-    public List<Funcionarios> findAll() {
-        List<Funcionarios> funcionarios = new ArrayList<>();
+    public List<Employee> findAll() {
+        List<Employee> employees = new ArrayList<>();
 
         try (Connection connection = ConnectionFactory.getConnection()) {
             String sql = "SELECT id, nome, to_char(data_nascimento, 'DD/MM/YYYY') as data_nascimento, to_char(salario, 'fm999G999D99') as salario, funcao FROM funcionarios";
@@ -69,32 +69,32 @@ public class FuncionariosDAO implements IFuncionariosDAO{
             ResultSet rs = preparedStatement.executeQuery();
 
             while(rs.next()){
-                String nome = rs.getString("nome");
-                String dataNascimento = rs.getString("data_nascimento");
-                String salario = rs.getString("salario");
-                String funcao = rs.getString("funcao");
+                String name = rs.getString("nome");
+                String birth = rs.getString("data_nascimento");
+                String salary = rs.getString("salario");
+                String function = rs.getString("funcao");
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                LocalDate localDate = LocalDate.parse(dataNascimento, formatter);
+                LocalDate localDate = LocalDate.parse(birth, formatter);
 
-                BigDecimal bigDecimal = new BigDecimal(salario.replaceAll(",", ""));
+                BigDecimal bigDecimal = new BigDecimal(salary.replaceAll(",", ""));
 
-                Funcionarios funcionario = new Funcionarios(nome, localDate, bigDecimal, funcao);
-                funcionarios.add(funcionario);
+                Employee funcionario = new Employee(name, localDate, bigDecimal, function);
+                employees.add(funcionario);
             }
 
         } catch (SQLException error) {
             throw new RuntimeException(error);
         } ;
 
-        return funcionarios;
+        return employees;
     }
 
 //    ----------------- METODO PARA RETORNAR PESSOA MAIS VELHA -----------------
 //    @Override
 //    public String maxAge() {
-//        String funcionario = "";
-//        String idade = "";
+//        String employee = "";
+//        String age = "";
 //
 //        try (Connection connection = ConnectionFactory.getConnection()) {
 //            String sql = "SELECT nome, date_part('year', age(data_nascimento)) as idade\n" +
@@ -106,21 +106,21 @@ public class FuncionariosDAO implements IFuncionariosDAO{
 //            ResultSet rs = preparedStatement.executeQuery();
 //
 //            while(rs.next()){
-//                funcionario = rs.getString("nome");
-//                idade = rs.getString("idade").toString();
+//                employee = rs.getString("nome");
+//                age = rs.getString("idade").toString();
 //            }
 //
 //        } catch (SQLException error) {
 //            throw new RuntimeException(error);
 //        } ;
 //
-//        return "nome: " + funcionario + "\n" + "idade: " + idade;
+//        return "Nome: " + employee + "\n" + "Idade: " + age;
 //    }
 
 //    ----------------- METODO PARA RETORNAR PESSOAS QUE FAZEM ANIVERSÁRIOS NOS MESES 10 E 12 -----------------
 //    @Override
 //    public List<String> findByBirthday() {
-//        List<String> funcionarios = new ArrayList<>();
+//        List<String> employees = new ArrayList<>();
 //
 //        try (Connection connection = ConnectionFactory.getConnection()) {
 //            String sql = "SELECT nome, data_nascimento FROM funcionarios WHERE EXTRACT(MONTH FROM data_nascimento) = 10 OR EXTRACT(MONTH FROM data_nascimento) = 12";
@@ -129,16 +129,16 @@ public class FuncionariosDAO implements IFuncionariosDAO{
 //            ResultSet rs = preparedStatement.executeQuery();
 //
 //            while(rs.next()){
-//                String nome = rs.getString("nome");
+//                String name = rs.getString("nome");
 //
-//                funcionarios.add(nome);
+//                employees.add(name);
 //            }
 //
 //        } catch (SQLException error) {
 //            throw new RuntimeException(error);
 //        } ;
 //
-//        return funcionarios;
+//        return employees;
 //    }
 
 //    ----------------- METODO PARA RETORNAR NOMES ORDENADOS -----------------
