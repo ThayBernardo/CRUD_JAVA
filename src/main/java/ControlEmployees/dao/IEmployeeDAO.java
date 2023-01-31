@@ -9,10 +9,8 @@ public interface IEmployeeDAO {
     void update();
     void delete(String name);
     List<Employee> findAll();
-
-//    ----------------- DEFININDO MÉTODOS NA INTERFACE -----------------
-//    List<String> findByBirthday();
-//    String maxAge();
-//    List<String> findAllNames();
-//    Integer totalSalary();
+    List<String> findByBirthday();
+    String maxAge();
+    List<String> findAllNames();
+    Integer totalSalary();
 }

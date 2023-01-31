@@ -90,98 +90,96 @@ public class EmployeeDAO implements IEmployeeDAO {
         return employees;
     }
 
-//    ----------------- METODO PARA RETORNAR PESSOA MAIS VELHA -----------------
-//    @Override
-//    public String maxAge() {
-//        String employee = "";
-//        String age = "";
-//
-//        try (Connection connection = ConnectionFactory.getConnection()) {
-//            String sql = "SELECT nome, date_part('year', age(data_nascimento)) as idade\n" +
-//                    "FROM funcionarios\n" +
-//                    "ORDER BY data_nascimento\n" +
-//                    "LIMIT 1";
-//
-//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//            ResultSet rs = preparedStatement.executeQuery();
-//
-//            while(rs.next()){
-//                employee = rs.getString("nome");
-//                age = rs.getString("idade").toString();
-//            }
-//
-//        } catch (SQLException error) {
-//            throw new RuntimeException(error);
-//        } ;
-//
-//        return "Nome: " + employee + "\n" + "Idade: " + age;
-//    }
+    @Override
+    public String maxAge() {
+        String employee = "";
+        String age = "";
 
-//    ----------------- METODO PARA RETORNAR PESSOAS QUE FAZEM ANIVERSÁRIOS NOS MESES 10 E 12 -----------------
-//    @Override
-//    public List<String> findByBirthday() {
-//        List<String> employees = new ArrayList<>();
-//
-//        try (Connection connection = ConnectionFactory.getConnection()) {
-//            String sql = "SELECT nome, data_nascimento FROM funcionarios WHERE EXTRACT(MONTH FROM data_nascimento) = 10 OR EXTRACT(MONTH FROM data_nascimento) = 12";
-//
-//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//            ResultSet rs = preparedStatement.executeQuery();
-//
-//            while(rs.next()){
-//                String name = rs.getString("nome");
-//
-//                employees.add(name);
-//            }
-//
-//        } catch (SQLException error) {
-//            throw new RuntimeException(error);
-//        } ;
-//
-//        return employees;
-//    }
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "SELECT nome, date_part('year', age(data_nascimento)) as idade\n" +
+                    "FROM funcionarios\n" +
+                    "ORDER BY data_nascimento\n" +
+                    "LIMIT 1";
 
-//    ----------------- METODO PARA RETORNAR NOMES ORDENADOS -----------------
-//    public List<String> findAllNames() {
-//        List<String> orderedNames = new ArrayList<>();
-//
-//        try (Connection connection = ConnectionFactory.getConnection()) {
-//            String sql = "SELECT nome FROM funcionarios ORDER BY nome";
-//
-//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//            ResultSet rs = preparedStatement.executeQuery();
-//
-//            while(rs.next()){
-//                String name = rs.getString("nome");
-//
-//                orderedNames.add(name);
-//            }
-//
-//        } catch (SQLException error) {
-//            throw new RuntimeException(error);
-//        } ;
-//
-//        return orderedNames;
-//    }
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
 
-    //    ----------------- METODO PARA RETORNAR TOTAL DOS SALARIOS -----------------
-//    public Integer totalSalary() {
-//        Integer total = null;
-//        try (Connection connection = ConnectionFactory.getConnection()) {
-//            String sql = "SELECT SUM(salario) as total_salarios FROM funcionarios";
-//
-//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//            ResultSet rs = preparedStatement.executeQuery();
-//
-//            while (rs.next()) {
-//                total = rs.getInt("total_salarios");
-//            }
-//
-//        } catch (SQLException error) {
-//            throw new RuntimeException(error);
-//        }
-//        ;
-//
-//        return total;
-//    }
+            while(rs.next()){
+                employee = rs.getString("nome");
+                age = rs.getString("idade").toString();
+            }
+
+        } catch (SQLException error) {
+            throw new RuntimeException(error);
+        } ;
+
+        return "Nome: " + employee + "\n" + "Idade: " + age;
+    }
+
+    @Override
+    public List<String> findByBirthday() {
+        List<String> employees = new ArrayList<>();
+
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "SELECT nome, data_nascimento\n" +
+            "FROM funcionarios\n" +
+            "WHERE EXTRACT(MONTH FROM data_nascimento) = 10 OR EXTRACT(MONTH FROM data_nascimento) = 12";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                String name = rs.getString("nome");
+
+                employees.add(name);
+            }
+
+        } catch (SQLException error) {
+            throw new RuntimeException(error);
+        } ;
+
+        return employees;
+    }
+
+    public List<String> findAllNames() {
+        List<String> orderedNames = new ArrayList<>();
+
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "SELECT nome FROM funcionarios ORDER BY nome";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                String name = rs.getString("nome");
+
+                orderedNames.add(name);
+            }
+
+        } catch (SQLException error) {
+            throw new RuntimeException(error);
+        } ;
+
+        return orderedNames;
+    }
+
+    public Integer totalSalary() {
+        Integer total = null;
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "SELECT SUM(salario) as total_salarios FROM funcionarios";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                total = rs.getInt("total_salarios");
+            }
+
+        } catch (SQLException error) {
+            throw new RuntimeException(error);
+        }
+        ;
+
+        return total;
+    }
 }
