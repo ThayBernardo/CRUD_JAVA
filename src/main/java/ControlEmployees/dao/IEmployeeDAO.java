@@ -13,4 +13,6 @@ public interface IEmployeeDAO {
 //    ----------------- DEFININDO MÉTODOS NA INTERFACE -----------------
 //    List<String> findByBirthday();
 //    String maxAge();
+//    List<String> findAllNames();
+//    Integer totalSalary();
 }
