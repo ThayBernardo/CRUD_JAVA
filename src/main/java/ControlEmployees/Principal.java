@@ -51,6 +51,7 @@ public class Principal {
 
     public static void createEmployee(EmployeeDAO employeeDAO) {
         List<Employee> employeesList = Arrays.asList(
+            new Employee("Maria", LocalDate.of(2000, 10, 18), BigDecimal.valueOf(2009.44), "Operador"),
             new Employee("João", LocalDate.of(1990, 5, 12), BigDecimal.valueOf(2284.38), "Operador"),
             new Employee("Caio", LocalDate.of(1961, 5, 2), BigDecimal.valueOf(9836.14), "Coordenador"),
             new Employee("Miguel", LocalDate.of(1988, 10, 14), BigDecimal.valueOf(19119.88), "Diretor"),
@@ -141,7 +142,19 @@ public class Principal {
 
             total = salary.divide(salaryMin, new MathContext(2, RoundingMode.HALF_EVEN));
 
-            System.out.println("Funcionário: " + employee.getName() + ", Salarios Minimo: " + total);
+            System.out.println("Funcionário: " + employee.getName() + ", Salários Minimo: " + total);
+        }
+    }
+
+        public static void birthdays(EmployeeDAO employeeDAO){
+        List<Employee> employees = employeeDAO.findAll();
+
+        for(Employee employee : employees){
+            int month = employee.getBirth().getMonthValue();
+
+            if(month == 10 || month == 12) {
+                System.out.println("Nome: " + employee.getName() + ", Aniversário: " + employee.getBirth());
+            }
         }
     }
 
@@ -163,15 +176,4 @@ public class Principal {
         System.out.print("Nome: " + name + ", Idade: " + age.getYears());
     }
 
-    public static void birthdays(EmployeeDAO employeeDAO){
-        List<Employee> employees = employeeDAO.findAll();
-
-        for(Employee employee : employees){
-            int month = employee.getBirth().getMonthValue();
-
-            if(month == 10 || month == 12) {
-                System.out.println("Nome: " + employee.getName() + ", Aniversário: " + employee.getBirth());
-            }
-        }
-    }
 }
