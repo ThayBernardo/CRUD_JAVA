@@ -29,7 +29,7 @@ public class Employee extends Person {
         return function;
     }
 
-    public void setFunction(String funcao) {
+    public void setFunction(String function) {
         this.function = function;
     }
 }
